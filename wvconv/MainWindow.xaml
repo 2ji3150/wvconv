@@ -10,21 +10,18 @@
         <CommandBinding Command="{x:Static local:MainWindow.Start}" Executed="Start_Executed"/>
         <CommandBinding Command="{x:Static local:MainWindow.Cancel}" Executed="Cancel_Executed"/>
     </Window.CommandBindings>
-    <Window.Resources>
-        <local:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
-    </Window.Resources>
     <Window.TaskbarItemInfo>
-        <TaskbarItemInfo ProgressValue="{Binding Pvalue}" ProgressState="Normal"/>
+        <TaskbarItemInfo ProgressValue="{Binding Pvalue.Value}" ProgressState="Normal"/>
     </Window.TaskbarItemInfo>
     <Grid>
-        <ProgressBar Value="{Binding Pvalue}" VerticalAlignment="Top" Margin="10,20,10,0" Height="26" Maximum="1" SmallChange="0.001"/>
-        <TextBlock x:Name="progresstext" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Ptext}" VerticalAlignment="Top" Margin="0,50,10,0" FontSize="18"/>
+        <ProgressBar Value="{Binding Pvalue.Value}" VerticalAlignment="Top" Margin="10,20,10,0" Height="26" Maximum="1" SmallChange="0.001"/>
+        <TextBlock x:Name="progresstext" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Ptext.Value}" VerticalAlignment="Top" Margin="0,50,10,0" FontSize="18"/>
         <StackPanel Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="90" FontSize="14" Height="26" Margin="0,0,5,0" Command="{x:Static local:MainWindow.Cancel}" IsEnabled="{Binding Path=Idle, Converter={StaticResource InverseBooleanConverter}}"/>
-            <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="90" FontSize="14" Height="26" Margin="0" Command="{x:Static local:MainWindow.Start}" IsEnabled="{Binding Idle}"/>
+            <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="90" FontSize="14" Height="26" Margin="0,0,5,0" Command="{x:Static local:MainWindow.Cancel}" IsEnabled="{Binding Cancelable.Value}"/>
+            <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="90" FontSize="14" Height="26" Margin="0" Command="{x:Static local:MainWindow.Start}" IsEnabled="{Binding Idle.Value}"/>
         </StackPanel>
         <GroupBox Header="Mode" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom">
-            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="5" SelectedIndex="{Binding Index}" IsEnabled="{Binding Idle}">
+            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="5" SelectedIndex="{Binding Index.Value}" IsEnabled="{Binding Idle.Value}">
                 <ComboBoxItem Content="Encode" HorizontalAlignment="Left" Width="118"/>
                 <ComboBoxItem Content="Decode" HorizontalAlignment="Left" Width="118"/>
             </ComboBox>
